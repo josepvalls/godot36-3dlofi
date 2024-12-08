@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Gloves_Qa_stitch.obj-8e1dc4feb61d0827dd6bdc6eda74d8ec.mesh"
+
+[deps]
+
+files=[ "res://.import/Gloves_Qa_stitch.obj-8e1dc4feb61d0827dd6bdc6eda74d8ec.mesh" ]
+
+source_file="res://models/Gloves_Qa_stitch.obj"
+dest_files=[ "res://.import/Gloves_Qa_stitch.obj-8e1dc4feb61d0827dd6bdc6eda74d8ec.mesh", "res://.import/Gloves_Qa_stitch.obj-8e1dc4feb61d0827dd6bdc6eda74d8ec.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286
