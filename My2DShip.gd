@@ -8,7 +8,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	steer_main_ship()
+	call_deferred("play_cutscene")
 
 func top1():
 	$Viewport/Background/AnimationPlayer.play("scroll")
@@ -50,7 +50,7 @@ func move2():
 	tween.tween_property($TextureRect, "rect_position", Vector2(150,-150), 3.0).set_ease(Tween.EASE_OUT)
 	tween.tween_property($SecondaryContainer/TextureRect2, "rect_position", Vector2(0,0), 3.0).set_ease(Tween.EASE_OUT)
 	
-func steer_main_ship():
+func play_cutscene():
 	clear_dialog()
 	portrait1()
 	top1()
@@ -78,6 +78,8 @@ func steer_main_ship():
 	top1()
 	top2()
 	move_squad()
+	yield(get_tree().create_timer(4.0), "timeout")
+	get_tree().change_scene("res://Ending.tscn")
 	
 func clear_dialog():
 	$Polygon2D.hide()

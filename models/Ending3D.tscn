@@ -1,25 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://models/coaster-monorail-straight-hill-beginning.tscn" type="PackedScene" id=1]
 
-[sub_resource type="Environment" id=1]
-ambient_light_color = Color( 1, 1, 1, 1 )
-
 [node name="Spatial" type="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505957, 0, -0.0120466 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.65073, -7.35366, -0.0120466 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.301005, 0.953622, 0, -0.953622, 0.301005, -0.0898502, 0.869353, 3.40185 )
+transform = Transform( 1, 0, 0, 0, 0.301005, 0.953623, 0, -0.953623, 0.301005, 0.00362945, 0.869353, 3.40185 )
 fov = 120.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 1 )
-
-[node name="coaster-monorail-straight-hill-beginning" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.996195, 0, -0.0871557, 0, 1, 0, 0.0871557, 0, 0.996195, -0.15, 0, 0 )
+[node name="coaster-monorail-straight-hill-beginning1" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.984808, 0, -0.173648, 0, 1, 0, 0.173648, 0, 0.984808, -0.3, 0, 0 )
 
 [node name="coaster-monorail-straight-hill-beginning2" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.984808, 0, -0.173648, 0, 1, 0, 0.173648, 0, 0.984808, -0.3, 0, 0 )
+transform = Transform( 0.996195, 0, -0.0871557, 0, 1, 0, 0.0871557, 0, 0.996195, -0.15, 0, 0 )
 
 [node name="coaster-monorail-straight-hill-beginning3" parent="." instance=ExtResource( 1 )]
 

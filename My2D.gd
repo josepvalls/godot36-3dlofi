@@ -59,6 +59,7 @@ func play_cutscene():
 	$TextureRect/Viewport/Hangar/door.hide()
 	$TextureRect2/Viewport/Hangar/Lights.hide()
 	$TextureRect2/Viewport/Hangar/door.hide()
+	get_tree().change_scene("res://My2DShip.tscn")
 	
 	
 	
