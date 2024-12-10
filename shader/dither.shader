@@ -73,4 +73,5 @@ void fragment()
 	
 	// return the final colour!
 	COLOR.rgb = final_col;
+	COLOR.a = floor(texture(TEXTURE, screen_sample_uv).a);
 }

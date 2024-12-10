@@ -1,0 +1,251 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://models/anim/Typing3.tscn" type="PackedScene" id=1]
+[ext_resource path="res://vfx/muzzle_02.png" type="Texture" id=2]
+[ext_resource path="res://models/light_fighter_spaceship_-_free_-.glb" type="PackedScene" id=3]
+[ext_resource path="res://models/anim/pioneer_default_cockpit.glb" type="PackedScene" id=4]
+[ext_resource path="res://vfx/muzzle_02_rotated.png" type="Texture" id=5]
+[ext_resource path="res://light.png" type="Texture" id=8]
+
+[sub_resource type="Environment" id=3]
+background_mode = 1
+background_color = Color( 0, 0, 0.333333, 1 )
+background_energy = 0.1
+glow_enabled = true
+glow_bloom = 1.0
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 8 )
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.290323, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+lifetime_randomness = 0.5
+direction = Vector3( 0, 0, -1 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+scale = 0.4
+scale_curve = SubResource( 6 )
+color = Color( 0.8, 0.443137, 0.984314, 1 )
+color_ramp = SubResource( 10 )
+
+[sub_resource type="QuadMesh" id=8]
+
+[sub_resource type="ParticlesMaterial" id=11]
+lifetime_randomness = 0.5
+direction = Vector3( 0, 0, -1 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+scale = 0.2
+scale_curve = SubResource( 6 )
+color = Color( 0.8, 0.443137, 0.984314, 1 )
+color_ramp = SubResource( 10 )
+
+[sub_resource type="SpatialMaterial" id=12]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 1
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=13]
+lifetime_randomness = 0.5
+trail_divisor = 2
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3( 0, 0, -1 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 20.0
+angle = 720.0
+angle_random = 0.5
+scale = 2.0
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 10 )
+
+[sub_resource type="ORMSpatialMaterial" id=14]
+flags_transparent = true
+flags_unshaded = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+lifetime_randomness = 0.5
+trail_divisor = 2
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector3( 0, 0, -1 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 20.0
+angle_random = 0.5
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 10 )
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 10, 50 )
+
+[node name="Ship" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="fightership" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="light_fighter_spaceship_-_free_-" parent="fightership" instance=ExtResource( 3 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
+
+[node name="fire" type="Spatial" parent="fightership"]
+
+[node name="Particles1" type="Particles" parent="fightership/fire"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.550696, -1.63076 )
+material_override = SubResource( 4 )
+lifetime = 0.2
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="Particles2" type="Particles" parent="fightership/fire"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.456147, 0.485564, -1.30115 )
+material_override = SubResource( 4 )
+lifetime = 0.1
+process_material = SubResource( 11 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="Particles3" type="Particles" parent="fightership/fire"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.448268, 0.485564, -1.30115 )
+material_override = SubResource( 4 )
+lifetime = 0.1
+process_material = SubResource( 11 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="Particles4" type="Particles" parent="fightership/fire"]
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0.0874349, 0.661202, -0.292495 )
+visible = false
+material_override = SubResource( 12 )
+amount = 20
+lifetime = 0.1
+visibility_aabb = AABB( -4, -0.819726, -4, 8, 0.002, 8 )
+process_material = SubResource( 13 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="Particles5" type="Particles" parent="fightership/fire"]
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, -2.22331, 0.465585, 0.89936 )
+visible = false
+material_override = SubResource( 14 )
+amount = 2
+lifetime = 0.2
+visibility_aabb = AABB( -4, -0.819726, -4, 8, 0.002, 8 )
+process_material = SubResource( 15 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="Camera1" type="Camera" parent="."]
+transform = Transform( -1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 9, -1 )
+current = true
+fov = 35.0
+
+[node name="Camera2" type="Camera" parent="."]
+transform = Transform( -1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 20, 0 )
+current = true
+fov = 35.0
+
+[node name="Camera3" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.31306, 0.451017, 0 )
+current = true
+fov = 35.0
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.46426, 13.3147, 11.4072 )
+light_energy = 10.0
+shadow_enabled = true
+omni_range = 50.0
+omni_shadow_mode = 0
+
+[node name="OmniLight2" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.785477, 3.4321, 0.0332469 )
+light_energy = 0.5
+shadow_enabled = true
+omni_shadow_mode = 0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 7.33164, 0 )
+light_energy = 0.0
+shadow_enabled = true
+
+[node name="Camera5" type="Camera" parent="."]
+transform = Transform( -0.999954, -0.00322337, -0.00898639, -0.00693623, 0.89207, 0.451843, 0.00656003, 0.451885, -0.892052, -0.0374069, 1.07376, 3.25787 )
+size = 4.0
+
+[node name="Camera6" type="Camera" parent="."]
+transform = Transform( 0.896858, 0.205393, -0.391739, -0.00693623, 0.89207, 0.451843, 0.442264, -0.402522, 0.801485, -0.0954576, 0.997721, 3.66194 )
+size = 4.0
+
+[node name="cockpit" type="Spatial" parent="."]
+transform = Transform( -1, -3.67154e-08, -7.93393e-08, 0, 0.907536, -0.419975, 8.74228e-08, -0.419975, -0.907536, 31.624, -6.3237, -11.1234 )
+
+[node name="ground4" type="MeshInstance" parent="cockpit"]
+transform = Transform( 3.25225, -6.93568e-11, -4.01247e-12, 1.95026e-11, 0.887896, 0.460045, -8.71538e-12, -0.460045, 0.887896, 31.4576, -0.478127, -16.5149 )
+visible = false
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+
+[node name="ground2" type="MeshInstance" parent="cockpit"]
+transform = Transform( 0.5, -1.06629e-11, -6.16867e-13, 1.066e-11, 0.496396, 0.0599211, -6.65442e-13, -0.0599211, 0.496396, 31.4576, 0.722378, -5.45963 )
+visible = false
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+
+[node name="ground3" type="MeshInstance" parent="cockpit"]
+transform = Transform( 0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 34.1427, 2.30284, 7.29078 )
+visible = false
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+
+[node name="ground5" type="MeshInstance" parent="cockpit"]
+transform = Transform( 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 29.1427, 2.30284, 7.29078 )
+visible = false
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+
+[node name="OmniLight3" type="OmniLight" parent="cockpit"]
+transform = Transform( 1, 1.51865e-08, 8.46999e-08, -1.51865e-08, -0.937707, 0.347427, 8.46999e-08, -0.347427, -0.937707, 31.8017, 0.867808, -16.0988 )
+visible = false
+light_energy = 0.5
+omni_range = 3.0
+omni_shadow_mode = 0
+
+[node name="Typing" parent="cockpit" instance=ExtResource( 1 )]
+transform = Transform( -0.42, 0, -6.34182e-08, 0, 0.42, 0, 6.34182e-08, 0, -0.42, 31.6707, -0.0392315, -16.2795 )
+visible = false
+
+[node name="AnimationPlayer" parent="cockpit/Typing/RootNode" index="3"]
+autoplay = "mixamo.com"
+
+[node name="pioneer_default_cockpit" parent="cockpit" instance=ExtResource( 4 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 31.6629, 0.515482, -16.2092 )
+visible = false
+
+[editable path="cockpit/Typing"]

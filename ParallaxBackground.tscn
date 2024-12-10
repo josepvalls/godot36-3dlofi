@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://tiles/Cloudy_Sky-Blue_02-1024x512.png" type="Texture" id=1]
+[ext_resource path="res://ParallaxBackground.gd" type="Script" id=2]
+[ext_resource path="res://tiles/tilesetOpenGameBackground.png" type="Texture" id=3]
+
+[node name="ParallaxBackground" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+motion_mirroring = Vector2( 320, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color( 0.439216, 0.454902, 0.478431, 1 )
+margin_left = -3.0
+margin_top = -73.0
+margin_right = 509.0
+margin_bottom = 227.0
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="CloudySky-Blue02-1024X513" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+modulate = Color( 1, 1, 1, 0.501961 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 512 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 2, 2 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="CloudySky-Blue02-1024X513" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 0, -400 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 512 )

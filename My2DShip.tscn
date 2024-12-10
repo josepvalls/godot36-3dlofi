@@ -1,0 +1,231 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://My2DShip.gd" type="Script" id=1]
+[ext_resource path="res://assets/my-blues.png" type="Texture" id=2]
+[ext_resource path="res://shader/dither.shader" type="Shader" id=3]
+[ext_resource path="res://assets/bayer2tile16.png" type="Texture" id=4]
+[ext_resource path="res://assets/bayer16tile2.png" type="Texture" id=5]
+[ext_resource path="res://assets/my-purples.png" type="Texture" id=6]
+[ext_resource path="res://ParallaxBackground.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/my-greens.png" type="Texture" id=8]
+[ext_resource path="res://Ship.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Background.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/my-oranges.png" type="Texture" id=11]
+[ext_resource path="res://FontTheme.tres" type="Theme" id=12]
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = ExtResource( 3 )
+shader_param/u_bit_depth = 32
+shader_param/u_contrast = 1.0
+shader_param/u_offset = null
+shader_param/u_dither_size = 1
+shader_param/u_dither_tex = ExtResource( 4 )
+shader_param/u_color_tex = ExtResource( 2 )
+
+[sub_resource type="ViewportTexture" id=13]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="Environment" id=3]
+background_mode = 1
+background_color = Color( 0, 0, 0.333333, 1 )
+background_energy = 0.1
+glow_enabled = true
+glow_bloom = 1.0
+
+[sub_resource type="World" id=12]
+environment = SubResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 3 )
+shader_param/u_bit_depth = 32
+shader_param/u_contrast = 1.0
+shader_param/u_offset = null
+shader_param/u_dither_size = 1
+shader_param/u_dither_tex = ExtResource( 5 )
+shader_param/u_color_tex = ExtResource( 6 )
+
+[sub_resource type="ViewportTexture" id=15]
+viewport_path = NodePath("SecondShip")
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/u_bit_depth = 32
+shader_param/u_contrast = 1.0
+shader_param/u_offset = null
+shader_param/u_dither_size = 1
+shader_param/u_dither_tex = ExtResource( 5 )
+shader_param/u_color_tex = ExtResource( 6 )
+
+[sub_resource type="ViewportTexture" id=5]
+viewport_path = NodePath("TextureRect/Viewport")
+
+[sub_resource type="World" id=6]
+environment = SubResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = ExtResource( 3 )
+shader_param/u_bit_depth = 32
+shader_param/u_contrast = 1.0
+shader_param/u_offset = null
+shader_param/u_dither_size = 1
+shader_param/u_dither_tex = ExtResource( 5 )
+shader_param/u_color_tex = ExtResource( 8 )
+
+[sub_resource type="ViewportTexture" id=16]
+viewport_path = NodePath("Portrait/Viewport")
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = ExtResource( 3 )
+shader_param/u_bit_depth = 32
+shader_param/u_contrast = 1.0
+shader_param/u_offset = null
+shader_param/u_dither_size = 1
+shader_param/u_dither_tex = ExtResource( 5 )
+shader_param/u_color_tex = ExtResource( 11 )
+
+[sub_resource type="ViewportTexture" id=18]
+viewport_path = NodePath("Portrait/Viewport")
+
+[node name="My2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+
+[node name="TextureRectBackground" type="TextureRect" parent="."]
+material = SubResource( 14 )
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = SubResource( 13 )
+expand = true
+flip_v = true
+
+[node name="SecondShip" type="Viewport" parent="."]
+size = Vector2( 256, 150 )
+world = SubResource( 12 )
+transparent_bg = true
+shadow_atlas_size = 256
+
+[node name="Ship" parent="SecondShip" instance=ExtResource( 9 )]
+
+[node name="Camera1" parent="SecondShip/Ship" index="2"]
+current = false
+
+[node name="OmniLight" parent="SecondShip/Ship" index="5"]
+light_energy = 2.0
+
+[node name="SecondaryContainer" type="Node2D" parent="."]
+
+[node name="TextureRect2" type="TextureRect" parent="SecondaryContainer"]
+material = SubResource( 11 )
+margin_top = 600.0
+margin_right = 1024.0
+margin_bottom = 1200.0
+texture = SubResource( 15 )
+stretch_mode = 1
+flip_v = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource( 4 )
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = SubResource( 5 )
+stretch_mode = 1
+flip_v = true
+
+[node name="Viewport" type="Viewport" parent="TextureRect"]
+size = Vector2( 256, 150 )
+world = SubResource( 6 )
+transparent_bg = true
+shadow_atlas_size = 256
+
+[node name="Ship" parent="TextureRect/Viewport" instance=ExtResource( 9 )]
+
+[node name="Camera2" parent="TextureRect/Viewport/Ship" index="3"]
+current = false
+
+[node name="OmniLight" parent="TextureRect/Viewport/Ship" index="5"]
+light_energy = 2.0
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 256, 150 )
+own_world = true
+
+[node name="Background" parent="Viewport" instance=ExtResource( 10 )]
+
+[node name="ParallaxBackground" parent="Viewport" instance=ExtResource( 7 )]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2( 0, 216 )
+color = Color( 0.266667, 0.0666667, 0.266667, 1 )
+polygon = PoolVector2Array( 3, 22, 34, 362, 306, 380, 379, 11 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+position = Vector2( 0, 216 )
+color = Color( 0.266667, 0.0666667, 0.266667, 1 )
+polygon = PoolVector2Array( 672, 5, 696, 352, 993, 376, 1009, 41 )
+
+[node name="Portrait" type="TextureRect" parent="."]
+material = SubResource( 17 )
+margin_top = 216.0
+margin_right = 384.0
+margin_bottom = 600.0
+texture = SubResource( 16 )
+expand = true
+flip_v = true
+
+[node name="Viewport" type="Viewport" parent="Portrait"]
+size = Vector2( 96, 96 )
+transparent_bg = true
+
+[node name="Ship" parent="Portrait/Viewport" instance=ExtResource( 9 )]
+
+[node name="OmniLight" parent="Portrait/Viewport/Ship" index="5"]
+light_energy = 0.3
+
+[node name="Portrait2" type="TextureRect" parent="."]
+material = SubResource( 19 )
+margin_left = 640.0
+margin_top = 216.0
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = SubResource( 18 )
+expand = true
+flip_h = true
+flip_v = true
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+position = Vector2( 0, 216 )
+color = Color( 0.317647, 0.305882, 0.505882, 1 )
+polygon = PoolVector2Array( 317, 218, 302, 362, 959, 376, 979, 231 )
+
+[node name="Polygon2D4" type="Polygon2D" parent="."]
+position = Vector2( 0, 216 )
+color = Color( 0.317647, 0.305882, 0.505882, 1 )
+polygon = PoolVector2Array( 53, 212, 82, 372, 731, 369, 708, 233 )
+
+[node name="Label1" type="Label" parent="."]
+margin_left = 334.0
+margin_top = 453.0
+margin_right = 950.0
+margin_bottom = 573.0
+theme = ExtResource( 12 )
+text = "Are you ready for this?"
+valign = 1
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 82.0
+margin_top = 453.0
+margin_right = 698.0
+margin_bottom = 573.0
+theme = ExtResource( 12 )
+text = "Are you ready for this?"
+align = 2
+valign = 1
+
+[editable path="SecondShip/Ship"]
+[editable path="SecondShip/Ship/cockpit/Typing"]
+[editable path="TextureRect/Viewport/Ship"]
+[editable path="TextureRect/Viewport/Ship/cockpit/Typing"]
+[editable path="Portrait/Viewport/Ship"]
+[editable path="Portrait/Viewport/Ship/cockpit/Typing"]
