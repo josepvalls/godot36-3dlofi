@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Lite Saturation - Fast Epic - 30 sec.mp3-0b15d2add94e814bb8a6ddfda782eff6.mp3str"
+
+[deps]
+
+source_file="res://sfx/Lite Saturation - Fast Epic - 30 sec.mp3"
+dest_files=[ "res://.import/Lite Saturation - Fast Epic - 30 sec.mp3-0b15d2add94e814bb8a6ddfda782eff6.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

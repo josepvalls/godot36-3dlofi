@@ -4,7 +4,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+signal next
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,15 +39,15 @@ func side2():
 func move1():
 	var tween = create_tween()
 	$TextureRect.rect_position = Vector2(0,300)
-	tween.tween_property($TextureRect, "rect_position", Vector2(0,100), 3.0).set_ease(Tween.EASE_OUT)
+	tween.tween_property($TextureRect, "rect_position", Vector2(0,100), 2.0).set_ease(Tween.EASE_OUT)
 	
 
 func move2():
 	var tween = create_tween()
-	$TextureRect.rect_position = Vector2(0,0)
+	$TextureRect.rect_position = Vector2(150,-600)
 	$SecondaryContainer/TextureRect2.rect_position = Vector2(-128,300)
 	tween.set_parallel()
-	tween.tween_property($TextureRect, "rect_position", Vector2(150,-150), 3.0).set_ease(Tween.EASE_OUT)
+	tween.tween_property($TextureRect, "rect_position", Vector2(150,-100), 3.0).set_ease(Tween.EASE_OUT)
 	tween.tween_property($SecondaryContainer/TextureRect2, "rect_position", Vector2(0,0), 3.0).set_ease(Tween.EASE_OUT)
 	
 func play_cutscene():
@@ -55,31 +55,35 @@ func play_cutscene():
 	portrait1()
 	top1()
 	move1()
-	yield(get_tree().create_timer(4.0), "timeout")
+	yield(get_tree().create_timer(2.0), "timeout")
 	side1()
 	side2()
 	$TextureRect.rect_position = Vector2(0,0)
 	move2()
-	var speech_len = 0.5
-	yield(get_tree().create_timer(speech_len), "timeout")
-	set_dialogue_left("Look who decided to join us!")
-	yield(get_tree().create_timer(speech_len), "timeout")
-	set_dialogue_right("I wouldn't miss the party!")
-	yield(get_tree().create_timer(speech_len), "timeout")
-	set_dialogue_left("We get one more shot at this.")
-	yield(get_tree().create_timer(speech_len), "timeout")
-	set_dialogue_right("I know, the clock is ticking.")
-	yield(get_tree().create_timer(speech_len), "timeout")
-	set_dialogue_left("It is now or never")
-	yield(get_tree().create_timer(speech_len), "timeout")
-	set_dialogue_right("Let's do it then!")
-	yield(get_tree().create_timer(speech_len), "timeout")
-	clear_dialog()
+	yield(get_tree().create_timer(2.0), "timeout")
+	if false:
+		var speech_len = 0.5
+		yield(get_tree().create_timer(speech_len), "timeout")
+		set_dialogue_left("Look who decided to join us!")
+		yield(get_tree().create_timer(speech_len), "timeout")
+		set_dialogue_right("I wouldn't miss the party!")
+		yield(get_tree().create_timer(speech_len), "timeout")
+		set_dialogue_left("We get one more shot at this.")
+		yield(get_tree().create_timer(speech_len), "timeout")
+		set_dialogue_right("I know, the clock is ticking.")
+		yield(get_tree().create_timer(speech_len), "timeout")
+		set_dialogue_left("It is now or never")
+		yield(get_tree().create_timer(speech_len), "timeout")
+		set_dialogue_right("Let's do it then!")
+		yield(get_tree().create_timer(speech_len), "timeout")
+		clear_dialog()
 	top1()
 	top2()
-	move_squad()
-	yield(get_tree().create_timer(4.0), "timeout")
-	get_tree().change_scene("res://Ending.tscn")
+	move_squad1()
+	move_squad2()
+	yield(get_tree().create_timer(2.0), "timeout")
+	#get_tree().change_scene("res://Ending.tscn")
+	emit_signal("next")
 	
 func clear_dialog():
 	$Polygon2D.hide()
@@ -112,13 +116,16 @@ func portrait1():
 	$Portrait/Viewport/Ship/fightership.hide()
 	$Portrait/Viewport/Ship/cockpit/Typing.show()
 	
-func move_squad():
+func move_squad1():
 	$TextureRect.rect_position = Vector2(0,300)
 	$SecondaryContainer/TextureRect2.rect_position = Vector2(0,300)
 	var tween = create_tween()
-	tween.set_parallel()
+	tween.set_parallel(true)
 	tween.tween_property($TextureRect/Viewport/Ship/fightership, "rotation_degrees", Vector3(0,0,45), 1.0).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property($TextureRect, "rect_position", Vector2(512,-450), 3.0).set_ease(Tween.EASE_OUT).set_delay(0.5)
+func move_squad2():
+	var tween = create_tween()
+	tween.set_parallel(true)
 	var num_sides = 4
 	for i in num_sides:
 		var secondary = $SecondaryContainer/TextureRect2.duplicate()
@@ -126,10 +133,10 @@ func move_squad():
 		if i >= 2:
 			i += 1
 		secondary.rect_position += Vector2(i*1024/num_sides-512, 0)
-		tween.tween_property(secondary, "rect_position", secondary.rect_position+ Vector2(0, randf()*-150), 3.0*+randf())
-	tween.tween_property($SecondShip/Ship/fightership, "rotation_degrees", Vector3(0,0,45), 1.0).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).set_delay(3.0)
-	tween.tween_property($SecondaryContainer, "position", Vector2(0,-450), 4.0).set_ease(Tween.EASE_OUT)
+		#tween.tween_property(secondary, "rect_position", secondary.rect_position+ Vector2(0, randf()*-150), 2.0*+randf())
+	tween.tween_property($SecondShip/Ship/fightership, "rotation_degrees", Vector3(0,0,45), 1.0).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property($SecondaryContainer, "position", Vector2(0,-300), 1.0).set_ease(Tween.EASE_OUT)
 	tween.chain()
-	tween.tween_property($SecondaryContainer, "position", Vector2(768,-900), 4.0).set_ease(Tween.EASE_OUT)
+	tween.tween_property($SecondaryContainer, "position", Vector2(768,-900), 2.0).set_ease(Tween.EASE_OUT)
 
 		

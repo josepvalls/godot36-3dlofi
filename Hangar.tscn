@@ -333,7 +333,7 @@ transform = Transform( -1, -3.67154e-08, -7.93393e-08, 0, 0.907536, -0.419975, 8
 visible = false
 
 [node name="Camera5" type="Camera" parent="cockpit"]
-transform = Transform( 0.999954, 0.00322341, 0.00898631, -0.00904989, 0.619806, 0.784703, -0.00304034, -0.784749, 0.619806, 31.6614, 0.673704, -16.1582 )
+transform = Transform( 0.999954, 0.00322342, 0.00898632, -0.0090499, 0.619806, 0.784703, -0.00304034, -0.784749, 0.619807, 31.6236, 0.673704, -16.1582 )
 size = 4.0
 
 [node name="ground4" type="MeshInstance" parent="cockpit"]
