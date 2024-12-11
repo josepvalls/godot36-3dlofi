@@ -27,6 +27,11 @@ func _ready():
 	for i in scenes:
 		i.connect("next", self, "play")
 	scenes[0].connect("cue_music", self, "music")
+	$Button.connect("pressed", self, "do_play")
+
+func do_play():
+	$Button.queue_free()
+	$DitherItCover.queue_free()
 	call_deferred("play")
 
 func music():

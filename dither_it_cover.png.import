@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TexturePalette.png-94a6abbe4f5ba2064adb5b140bcb9fda.stex"
+path="res://.import/dither_it_cover.png-cf77522aa365724c4c859aed15b8bb8e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/naturepackgltf/TexturePalette.png"
-dest_files=[ "res://.import/TexturePalette.png-94a6abbe4f5ba2064adb5b140bcb9fda.stex" ]
+source_file="res://dither_it_cover.png"
+dest_files=[ "res://.import/dither_it_cover.png-cf77522aa365724c4c859aed15b8bb8e.stex" ]
 
 [params]
 

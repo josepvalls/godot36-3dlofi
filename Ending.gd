@@ -41,6 +41,8 @@ func go_ships():
 	yield(get_tree().create_timer(timer), "timeout")
 	$TextureRect2/Viewport2/Ship/Squad/fightership1.hide()
 	activate_trail($"TextureRect/Viewport2/Spatial/coaster-monorail-straight-hill-beginning1")
+	yield(get_tree().create_timer(6), "timeout")
+	get_tree().change_scene("res://Cutscene.tscn")
 
 func pan():
 	var tween = create_tween()

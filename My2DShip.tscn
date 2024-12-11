@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://My2DShip.gd" type="Script" id=1]
 [ext_resource path="res://assets/my-blues.png" type="Texture" id=2]
@@ -25,7 +25,15 @@ shader_param/u_color_tex = ExtResource( 2 )
 [sub_resource type="ViewportTexture" id=13]
 viewport_path = NodePath("Viewport")
 
+[sub_resource type="Environment" id=3]
+background_mode = 1
+background_color = Color( 0, 0, 0.333333, 1 )
+background_energy = 0.1
+glow_enabled = true
+glow_bloom = 1.0
+
 [sub_resource type="World" id=12]
+environment = SubResource( 3 )
 
 [sub_resource type="ShaderMaterial" id=11]
 shader = ExtResource( 3 )
@@ -52,6 +60,7 @@ shader_param/u_color_tex = ExtResource( 6 )
 viewport_path = NodePath("TextureRect/Viewport")
 
 [sub_resource type="World" id=6]
+environment = SubResource( 3 )
 
 [sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 3 )

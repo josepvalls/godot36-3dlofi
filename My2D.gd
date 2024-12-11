@@ -54,7 +54,7 @@ func play_cutscene():
 	yield(get_tree().create_timer(1.0), "timeout")
 	$ViewportContainer2/Viewport/Hangar.liftoff()
 	$TextureRect/Viewport/Hangar.liftoff()
-	yield(get_tree().create_timer(2.5), "timeout")
+	yield(get_tree().create_timer(3.0), "timeout")
 	# show clear cockpit
 	#$ViewportContainer2.hide()
 	#yield(get_tree().create_timer(2.5), "timeout")
@@ -78,6 +78,7 @@ func show1():
 	$TextureRect2/Viewport/Hangar/Camera1.current = true
 	
 func show2():
+	$TextureRect2/Viewport/Hangar/WorldEnvironment.environment.background_color = Color.black
 	$TextureRect/Viewport/Hangar/cockpit.hide()
 	$TextureRect2/Viewport/Hangar/cockpit.hide()
 	$ViewportContainer2/Viewport/Hangar/Camera2.current = true
@@ -114,6 +115,7 @@ func show4():
 	$TextureRect2/Viewport/Hangar/Walking/Camera4.current = true
 
 func show5():
+	$TextureRect2/Viewport/Hangar/WorldEnvironment.environment.background_color = Color.white
 	$TextureRect/Viewport/Hangar/cockpit.show()
 	$TextureRect/Viewport/Hangar/cockpit/OmniLight3.show()
 	$TextureRect2/Viewport/Hangar/cockpit.show()
@@ -148,19 +150,6 @@ func do_walk2():
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		match event.scancode:
-			KEY_E:
-				$ViewportContainer2/Viewport/Hangar.set_on()
-				yield(get_tree().create_timer(2.0), "timeout")
-				$ViewportContainer2/Viewport/Hangar.liftoff()
-				$TextureRect/Viewport/Hangar.liftoff()
-				return
-			KEY_R:
-				do_walk1()
-				return
-			KEY_T:
-				do_walk2()
-				return
-
 			KEY_1:
 				show1()
 			KEY_2:

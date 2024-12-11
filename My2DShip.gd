@@ -6,8 +6,13 @@ extends Node2D
 # var b = "text"
 signal next
 
+var original_rotation1 = null
+var original_rotation3 = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	original_rotation1 = $TextureRect/Viewport/Ship/Camera1.rotation
+	original_rotation3 = $TextureRect/Viewport/Ship/Camera3.rotation
 	call_deferred("play_cutscene")
 
 func top1():
@@ -132,11 +137,21 @@ func move_squad2():
 		$SecondaryContainer.add_child(secondary)
 		if i >= 2:
 			i += 1
-		secondary.rect_position += Vector2(i*1024/num_sides-512, 0)
+		secondary.rect_position += Vector2(i*1024/num_sides-512, randf()*150)
 		#tween.tween_property(secondary, "rect_position", secondary.rect_position+ Vector2(0, randf()*-150), 2.0*+randf())
 	tween.tween_property($SecondShip/Ship/fightership, "rotation_degrees", Vector3(0,0,45), 1.0).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property($SecondaryContainer, "position", Vector2(0,-300), 1.0).set_ease(Tween.EASE_OUT)
 	tween.chain()
 	tween.tween_property($SecondaryContainer, "position", Vector2(768,-900), 2.0).set_ease(Tween.EASE_OUT)
 
-		
+var camera_offset = Vector3(0,0,0)
+
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		camera_offset.z += event.relative.x * 0.001
+		camera_offset.x += event.relative.y * 0.001
+		camera_offset.x = clamp(camera_offset.x, -1, 1)
+		camera_offset.z = clamp(camera_offset.z, -1, 1)
+		$TextureRect/Viewport/Ship/Camera1.rotation = original_rotation1 + camera_offset * 0.2
+		$TextureRect/Viewport/Ship/Camera3.rotation = original_rotation3 + camera_offset * 0.2
