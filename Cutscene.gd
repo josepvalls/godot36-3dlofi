@@ -19,19 +19,22 @@ var audio = [
 
 var current = 0
 var current_instance = null
-
+var intro = true
 var current_audio = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$TextureRect/Viewport/Ship/Camera7.current = true
 	for i in scenes:
 		i.connect("next", self, "play")
 	scenes[0].connect("cue_music", self, "music")
 	$Button.connect("pressed", self, "do_play")
 
 func do_play():
+	intro = false
 	$Button.queue_free()
 	$DitherItCover.queue_free()
+	$TextureRect.queue_free()
 	call_deferred("play")
 
 func music():
@@ -46,6 +49,10 @@ func play():
 		current_instance = scenes[current]
 		add_child(current_instance)
 		current += 1
+		
+func _process(delta):
+	if intro:
+		$TextureRect/Viewport/Ship/fightership.rotation.y += delta
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

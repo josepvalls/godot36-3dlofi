@@ -1,9 +1,25 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Cutscene.gd" type="Script" id=1]
 [ext_resource path="res://sfx/Lite Saturation - Fast Epic - 30 sec.mp3" type="AudioStream" id=2]
 [ext_resource path="res://dither_it_cover.png" type="Texture" id=3]
 [ext_resource path="res://FontTheme.tres" type="Theme" id=4]
+[ext_resource path="res://Ship.tscn" type="PackedScene" id=5]
+[ext_resource path="res://shader/dither.shader" type="Shader" id=6]
+[ext_resource path="res://assets/my-purples.png" type="Texture" id=7]
+[ext_resource path="res://assets/bayer16tile2.png" type="Texture" id=8]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 6 )
+shader_param/u_bit_depth = 32
+shader_param/u_contrast = 1.0
+shader_param/u_offset = null
+shader_param/u_dither_size = 1
+shader_param/u_dither_tex = ExtResource( 8 )
+shader_param/u_color_tex = ExtResource( 7 )
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("TextureRect/Viewport")
 
 [node name="Cutscene" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,6 +32,20 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 centered = false
 
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource( 4 )
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = SubResource( 1 )
+expand = true
+flip_v = true
+
+[node name="Viewport" type="Viewport" parent="TextureRect"]
+size = Vector2( 256, 150 )
+transparent_bg = true
+
+[node name="Ship" parent="TextureRect/Viewport" instance=ExtResource( 5 )]
+
 [node name="Button" type="Button" parent="."]
 margin_left = 435.0
 margin_top = 505.0
@@ -23,3 +53,6 @@ margin_right = 631.0
 margin_bottom = 584.0
 theme = ExtResource( 4 )
 text = "Play"
+
+[editable path="TextureRect/Viewport/Ship"]
+[editable path="TextureRect/Viewport/Ship/cockpit/Typing"]
